@@ -2,26 +2,24 @@ window.onload = () => {
 	fetch("input.txt")
 		.then(result => result.text())
 		.then(text => {
-			let mapBlocks = text.split("\n\n").map(block => block.split("\n"))
+			let mappingBlocks = text.split("\n\n").map(block => block.split("\n"))
 
-			let seeds = mapBlocks.splice(0, 1)[0][0]
-
-			//remove title row
-			mapBlocks.forEach(block => block.splice(0, 1))
-			mapBlocks = mapBlocks.map(block =>
-				block.map(line => line.split(" ").map(string => parseInt(string))),
-			)
-
-			seeds = seeds
+			let seeds = mappingBlocks
+				.splice(0, 1)[0][0]
 				.split(":")[1]
 				.trim()
 				.split(" ")
 				.map(string => parseInt(string))
 
-			partOne(seeds, mapBlocks)
+			//remove title row
+			mappingBlocks.forEach(block => block.splice(0, 1))
+			mappingBlocks = mappingBlocks.map(block =>
+				block.map(line => line.split(" ").map(string => parseInt(string))),
+			)
 
-			//PART TWO
-			partTwo(seeds, mapBlocks)
+			partOne(seeds, mappingBlocks)
+
+			partTwo(seeds, mappingBlocks)
 		})
 }
 function partOne(seeds, mappingBlocks) {
